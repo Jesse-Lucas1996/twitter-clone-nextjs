@@ -1,12 +1,51 @@
-import NextAuth, { NextAuthOptions } from "next-auth"
-import GoogleProvider from "next-auth/providers/google"
+import { randomUUID, randomBytes } from 'crypto';
+import { NextApiRequest, NextApiResponse } from 'next';
+import NextAuth, { NextAuthOptions, Session } from 'next-auth';
+import GoogleProvider from 'next-auth/providers/google';
 
-const authOptions:NextAuthOptions  = {
+interface CustomSession extends Session {
+  accessToken?: string;
+}
+
+const googleClientId = process.env.GOOGLE_CLIENT_ID!;
+const googleClientSecret = process.env.GOOGLE_CLIENT_SECRET!;
+
+if (!googleClientId || !googleClientSecret) {
+  throw new Error('Google client ID or client secret is missing.');
+}
+
+const authOptions: NextAuthOptions = {
   providers: [
     GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID!,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+      clientId: googleClientId,
+      clientSecret: googleClientSecret,
     }),
   ],
-}
-export default NextAuth(authOptions)
+  session: {
+    strategy: 'jwt',
+    generateSessionToken: () => {
+      return randomUUID?.() ?? randomBytes(32).toString("hex")
+    }
+  },
+
+  callbacks: {
+    async jwt({ token, account }) {
+      if (account) {
+        token.accessToken = account.access_token;
+      }
+      return token;
+    },
+    async session({ session, token, user }) {
+      const customSession: CustomSession = session;
+      customSession.accessToken = token.accessToken as string;
+      token.accessToken as string;
+      return customSession;
+    },
+  },
+  secret: process.env.NEXTAUTH_SECRET!,
+};
+
+const NextAuthHandler = (req: NextApiRequest, res: NextApiResponse) =>
+  NextAuth(req, res, authOptions);
+
+export default NextAuthHandler;
