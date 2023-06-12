@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import styles from '@/styles/Home.module.css';
 
+const POLLING_INTERVAL = 5000; // 5 seconds
+
 const PostList = () => {
     const [posts, setPosts] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -21,6 +23,8 @@ const PostList = () => {
     };
 
     fetchPosts();
+    const interval = setInterval(fetchPosts, POLLING_INTERVAL);
+    interval;
   }, []);
 
   return (

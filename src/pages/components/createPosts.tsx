@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useSession } from 'next-auth/react';
 import styles from '@/styles/Home.module.css';
-
 const CreatePostPage = () => {
   const { data: session, status } = useSession();
   const [content, setContent] = useState('');

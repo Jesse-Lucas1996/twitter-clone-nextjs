@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { connectToDatabase } from '../../lib/mongodb';
-
+import { Server } from 'socket.io';
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   try {
     const client = await connectToDatabase();
