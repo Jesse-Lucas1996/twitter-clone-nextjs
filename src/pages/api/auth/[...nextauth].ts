@@ -45,7 +45,6 @@ const authOptions: NextAuthOptions = {
   secret: process.env.NEXTAUTH_SECRET!,
 };
 
-const NextAuthHandler = (req: NextApiRequest, res: NextApiResponse) =>
-  NextAuth(req, res, authOptions);
+const NextAuthHandler =  NextAuth(authOptions);
 
 export default NextAuthHandler;
