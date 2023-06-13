@@ -1,19 +1,23 @@
 import { useEffect, useState } from 'react';
 import styles from '@/styles/Home.module.css';
-
-const POLLING_INTERVAL = 5000; // 5 seconds
-
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
 const PostList = () => {
-    const [posts, setPosts] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState('');
+  dayjs.extend(relativeTime)
+  const [posts, setPosts] = useState<any[]>([]); // Specify the type as any[]
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
 
   useEffect(() => {
     const fetchPosts = async () => {
       try {
         const response = await fetch('/api/getPosts');
         const data = await response.json();
-        setPosts(data);
+        if (Array.isArray(data)) {
+          setPosts(data);
+        } else {
+          setError('');
+        }
         setLoading(false);
       } catch (error) {
         console.error('Error fetching posts:', error);
@@ -23,12 +27,14 @@ const PostList = () => {
     };
 
     fetchPosts();
-    const interval = setInterval(fetchPosts, POLLING_INTERVAL);
-    interval;
+    const pollInterval = setInterval(fetchPosts, 2000);
+
+    // Clean up the interval when the component is unmounted
+    return () => clearInterval(pollInterval);
   }, []);
 
   return (
-    <div className="post-list">
+    <div className={`${styles.postList} mt-4`}>
       {loading ? (
         <div className={styles.loading}>
           <p className={styles.loadingText}>Loading posts...</p>
@@ -38,14 +44,16 @@ const PostList = () => {
       ) : (
         posts.map((post: any) => (
           <div key={post._id} className={styles.getPosts}>
-            <p className={styles.getPostsContent}>{post.userName}</p>
-            <p className={styles.getPostsContent}>{post.content}</p>
-            <p className={styles.getPostsDate}>{post.date}</p>
+            <div className={styles.postHeader}>
+              <p className={styles.userName}>{post.userName}</p>
+            </div>
+            <p className={styles.postContent}>{post.content}</p>
+            <p className={styles.postTime}>{dayjs(post.time).fromNow()}</p>
           </div>
         ))
       )}
     </div>
   );
-}
+};
 
 export default PostList;

@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { connectToDatabase } from "../../lib/mongodb";
 import { getServerSession } from "next-auth/next"
-
+import  Dayjs from 'dayjs'
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
@@ -10,6 +10,7 @@ export default async function handler(
     const client = await connectToDatabase();
     const db = client.db();
     const session = await getServerSession(req, res, {});
+    const time = Dayjs().format('YYYY-MM-DD HH:mm:ss')
     if (!session || !session.user) {
       return res.status(403).json({message:"No session found"});
     }
@@ -19,7 +20,7 @@ export default async function handler(
       return res.status(400).json({ message: "Content cannot be empty" });
       if(session)
       {
-        db.collection("posts").insertOne({ userName, content });
+        db.collection("posts").insertOne({ time, userName, content });
       }
 
     res.status(200).json({ message: "Success" });

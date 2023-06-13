@@ -8,13 +8,12 @@
 
 .content {
   padding-top: 1rem;
-  border: 1px solid #ffffff; /* Add the border property with desired width and color */
-  box-sizing: content-box; /* Optional: include padding and border in element's total width and height */
+  border: 1px solid #ffffff;
+  box-sizing: content-box;
 }
 
-
 .title {
-  box-sizing: border-box; /* Optional: include padding and border in element's total width and height */
+  box-sizing: border-box;
 }
 
 .signin {
@@ -70,6 +69,10 @@
   background-color: #1172a8;
 }
 
+.postList {
+  margin-top: 1rem; /* Add margin-top to create spacing from the previous component */
+}
+
 .post {
   display: block;
   width: 100%;
@@ -87,17 +90,13 @@
 
 .getPosts {
   border-radius: 8px;
-  padding: 5px;
-  margin-bottom: 5px;
-  box-shadow: 0px 2px 4px rgba(228, 17, 17, 0.1);
-}
-
-.getPosts {
-  border-radius: 8px;
   padding: 16px;
-  margin-bottom: 5px;
-  box-shadow: 0px 2px 4px rgba(228, 17, 17, 0.1);
-  color: #ffffff; /* Set the text color to white */
+  margin-bottom: 10px; /* Increase the margin-bottom for spacing between posts */
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Add a box shadow for a card-like effect */
+  background-color: #e61146;
+  color: #ffffff;
+  display: flex; /* Add display flex to align items vertically */
+  flex-direction: column; /* Align content vertically */
 }
 
 .getPostsContent {
