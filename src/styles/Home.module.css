@@ -73,6 +73,10 @@
   margin-top: 1rem; /* Add margin-top to create spacing from the previous component */
 }
 
+.postContent {
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
 .post {
   display: block;
   width: 100%;
@@ -97,6 +101,7 @@
   color: #ffffff;
   display: flex; /* Add display flex to align items vertically */
   flex-direction: column; /* Align content vertically */
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
 .getPostsContent {
