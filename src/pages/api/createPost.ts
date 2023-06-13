@@ -2,6 +2,8 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { connectToDatabase } from "../../lib/mongodb";
 import { getServerSession } from "next-auth/next"
 import  Dayjs from 'dayjs'
+import relativeTime from 'dayjs/plugin/relativeTime';
+Dayjs.extend(relativeTime);
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
@@ -10,7 +12,7 @@ export default async function handler(
     const client = await connectToDatabase();
     const db = client.db();
     const session = await getServerSession(req, res, {});
-    const time = Dayjs().format('YYYY-MM-DD HH:mm:ss')
+    const time = Dayjs().fromNow();
     if (!session || !session.user) {
       return res.status(403).json({message:"No session found"});
     }

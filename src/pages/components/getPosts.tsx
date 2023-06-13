@@ -1,9 +1,7 @@
 import { useEffect, useState } from 'react';
 import styles from '@/styles/Home.module.css';
 import dayjs from 'dayjs';
-import relativeTime from 'dayjs/plugin/relativeTime';
 const PostList = () => {
-  dayjs.extend(relativeTime)
   const [posts, setPosts] = useState<any[]>([]); // Specify the type as any[]
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -34,7 +32,7 @@ const PostList = () => {
   }, []);
 
   return (
-    <div className={`${styles.postList} mt-4`}>
+    <div className={styles.postList}>
       {loading ? (
         <div className={styles.loading}>
           <p className={styles.loadingText}>Loading posts...</p>
