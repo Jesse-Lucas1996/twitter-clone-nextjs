@@ -16,7 +16,7 @@
 
 - Image upload and GIF support
 - Customizable user profiles
-- Direct messaging (DMs)
+- Direct messaging (Messaging other users)
 
 ## Demo
 
