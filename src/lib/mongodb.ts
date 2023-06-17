@@ -8,7 +8,8 @@ if (!MONGODB_URI) {
 
 export async function connectToDatabase() {
   const client = await MongoClient.connect(MONGODB_URI!, {
-    connectTimeoutMS: 5000,
+    connectTimeoutMS: 20000,
+    maxPoolSize: 50,
   });
 
   return client;

@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
 import { useSession } from 'next-auth/react';
-import styles from '@/styles/Home.module.css';
+
 const CreatePostPage = () => {
   const { data: session, status } = useSession();
   const [content, setContent] = useState('');
-  const handleContentChange = (e: React.FormEvent<HTMLInputElement>) => {
-    setContent(e.currentTarget.value);
+  const [error, setError] = useState('');
+
+  const handleContentChange = (e: any) => {
+    setContent(e.target.value);
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
 
     try {
@@ -23,10 +25,10 @@ const CreatePostPage = () => {
       if (response.ok) {
         setContent('');
       } else {
-        console.error('Failed to create post');
+        setError('Something went wrong :(');
       }
-    } catch (error) {
-      console.error('Error creating post:', error);
+    } catch (error: any) {
+      setError(error.message)
     }
   };
 
@@ -35,21 +37,21 @@ const CreatePostPage = () => {
   }
 
   return (
-    <div>
-      <h1 className={styles.title}>Totally not twitter</h1>
+    <div className="p-6 shadow-md rounded-lg py-4">
       <form onSubmit={handleSubmit}>
-        <div>
+        <div className="flex items-center space-x-4">
           <input
-            className={styles.post}
+            className="flex-grow text-black px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
             type="text"
             value={content}
             onChange={handleContentChange}
             placeholder="Enter your post content"
           />
-          <button className={styles.button} type="submit">
+          <button className="px-4 py-2 bg-blue-500 text-white font-semibold rounded-lg" type="submit">
             Create Post
           </button>
         </div>
+        <p>{error}</p>
       </form>
     </div>
   );
