@@ -5,8 +5,6 @@
 </p>
 
 <p align="center">
-  <a href="https://twitter-clone-nextjs-hazel.vercel.app/">Live Demo</a> |
-  <a href="https://github.com/Jesse-Lucas1996/twitter-clone-nextjs">Source Code</a>
   <a href="https://www.linkedin.com/in/jesse-lucas-56b0b9163/">Linkedin</a>
 </p>
 
