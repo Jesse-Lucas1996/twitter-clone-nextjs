@@ -21,7 +21,7 @@ const CreatePostPage = () => {
         },
         body: JSON.stringify({ content }),
       });
-
+      if(content.length === 0) return setError('Please enter some content');
       if (response.ok) {
         setContent('');
       } else {
