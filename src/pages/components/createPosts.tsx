@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import { useSession } from 'next-auth/react';
 
 const CreatePostPage = () => {
+  const { status } = useSession();
   const [content, setContent] = useState('');
   const [error, setError] = useState('');
 
