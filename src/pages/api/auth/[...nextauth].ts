@@ -15,6 +15,9 @@ const authOptions: NextAuthOptions = {
       clientSecret: googleClientSecret,
     }),
   ],
+  pages: {
+    signIn: '/signin',
+  },
   secret: process.env.NEXTAUTH_SECRET!,
 };
 
