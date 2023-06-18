@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
-import { useSession } from 'next-auth/react';
 
 const CreatePostPage = () => {
-  const { data: session, status } = useSession();
   const [content, setContent] = useState('');
   const [error, setError] = useState('');
 
@@ -28,7 +26,7 @@ const CreatePostPage = () => {
         setError('Something went wrong :(');
       }
     } catch (error: any) {
-      setError(error.message)
+      setError(error.message);
     }
   };
 

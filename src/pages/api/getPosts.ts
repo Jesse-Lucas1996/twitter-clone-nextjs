@@ -5,7 +5,7 @@ import { getServerSession } from 'next-auth/next';
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const session = await getServerSession(req, res, {});
   if (!session || !session.user) {
-    return res.status(403).json({message:"No session found"});
+    return res.status(403).json({message:'No session found'});
   }  try {
     const client = await connectToDatabase();
     const db = client.db();
