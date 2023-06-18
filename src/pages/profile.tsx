@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSession } from 'next-auth/react';
+import { useSession, signOut } from 'next-auth/react';
 import Image from 'next/image';
 import SideMenu from './components/sideMenu';
 
@@ -24,6 +24,9 @@ const ProfilePage = () => {
           </div>
         </div>
       </div>
+      <button className='fixed top-20 right-0 flex items-center px-10 py-2 bg-blue-500 text-white text-sm font-bold rounded-md cursor-pointer transition duration-300' onClick={() => signOut({ redirect: true, callbackUrl: '/'})}>
+          Sign out
+      </button> 
     </div>
   );
 };
